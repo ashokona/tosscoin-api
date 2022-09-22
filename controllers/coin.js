@@ -4,6 +4,7 @@ import UserModal from "../models/user.js";
 const COINAPI = process.env.COINAPI || null;
 const headers = { 'X-CoinAPI-Key': COINAPI }
 
+// api which connects to coinapi to get BTC lastest values
 export const coinDetails = async (req, res) => {
     try {
         let response = await fetch('https://rest.coinapi.io/v1/exchangerate/BTC/USD', { method: 'GET', headers: headers })
@@ -15,6 +16,7 @@ export const coinDetails = async (req, res) => {
     }
 };
 
+//api which records validates the last guess and saves the state in mongodb
 export const lastGuess = async (req, res) => {
     try {
         const user = await UserModal.findById(req.userId);
@@ -40,6 +42,7 @@ export const lastGuess = async (req, res) => {
     }
 };
 
+// api to update the last guess made by user
 export const createGuess = async (req, res) => {
     try {
         const guess = req.body;
